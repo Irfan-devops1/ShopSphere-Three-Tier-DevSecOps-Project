@@ -1,0 +1,96 @@
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: shopsphere-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: shopsphere
+      POSTGRES_USER: shopsphere
+      POSTGRES_PASSWORD: shopsphere123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shopsphere -d shopsphere"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - shopsphere-network
+
+  catalog-service:
+    image: irfanahmadbhat/shopsphere-catalog:v1.0
+    container_name: shopsphere-catalog
+    restart: unless-stopped
+    environment:
+      PORT: 4001
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: shopsphere
+      DB_USER: shopsphere
+      DB_PASSWORD: shopsphere123
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - shopsphere-network
+
+  payment-service:
+    image: irfanahmadbhat/shopsphere-payment:v1.0
+    container_name: shopsphere-payment
+    restart: unless-stopped
+    environment:
+      PORT: 4003
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: shopsphere
+      DB_USER: shopsphere
+      DB_PASSWORD: shopsphere123
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - shopsphere-network
+
+  order-service:
+    image: irfanahmadbhat/shopsphere-order:v1.0
+    container_name: shopsphere-order
+    restart: unless-stopped
+    environment:
+      PORT: 4002
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: shopsphere
+      DB_USER: shopsphere
+      DB_PASSWORD: shopsphere123
+      CATALOG_URL: http://catalog-service:4001
+      PAYMENT_URL: http://payment-service:4003
+    depends_on:
+      postgres:
+        condition: service_healthy
+      catalog-service:
+        condition: service_started
+      payment-service:
+        condition: service_started
+    networks:
+      - shopsphere-network
+
+  frontend:
+    image: irfanahmadbhat/shopsphere-frontend:v1.0
+    container_name: shopsphere-frontend
+    restart: unless-stopped
+    ports:
+      - "4173:80"
+    depends_on:
+      - catalog-service
+      - order-service
+    networks:
+      - shopsphere-network
+
+volumes:
+  postgres_data:
+
+networks:
+  shopsphere-network:
+    driver: bridge
+
