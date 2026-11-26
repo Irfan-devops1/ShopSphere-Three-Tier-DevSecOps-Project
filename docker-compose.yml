@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_DB: shopsphere
       POSTGRES_USER: shopsphere
-      POSTGRES_PASSWORD: shopsphere123
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
@@ -29,7 +29,7 @@ services:
       DB_PORT: 5432
       DB_NAME: shopsphere
       DB_USER: shopsphere
-      DB_PASSWORD: shopsphere123
+      DB_PASSWORD: ${DB_PASSWORD}
     depends_on:
       postgres:
         condition: service_healthy
@@ -46,7 +46,7 @@ services:
       DB_PORT: 5432
       DB_NAME: shopsphere
       DB_USER: shopsphere
-      DB_PASSWORD: shopsphere123
+      DB_PASSWORD: ${DB_PASSWORD}
     depends_on:
       postgres:
         condition: service_healthy
@@ -63,7 +63,7 @@ services:
       DB_PORT: 5432
       DB_NAME: shopsphere
       DB_USER: shopsphere
-      DB_PASSWORD: shopsphere123
+      DB_PASSWORD: ${DB_PASSWORD}
       CATALOG_URL: http://catalog-service:4001
       PAYMENT_URL: http://payment-service:4003
     depends_on:

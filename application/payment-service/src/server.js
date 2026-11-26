@@ -12,7 +12,7 @@ const pool = new Pool({
   port: Number(process.env.DB_PORT || 5432),
   database: process.env.DB_NAME || "shopsphere",
   user: process.env.DB_USER || "shopsphere",
-  password: process.env.DB_PASSWORD || "shopsphere123"
+  password: process.env.DB_PASSWORD
 });
 
 app.use(helmet());
