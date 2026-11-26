@@ -10,6 +10,7 @@ services:
       POSTGRES_PASSWORD: shopsphere123
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U shopsphere -d shopsphere"]
       interval: 10s
@@ -19,7 +20,7 @@ services:
       - shopsphere-network
 
   catalog-service:
-    image: irfanahmadbhat/shopsphere-catalog:v1.0
+    image: irfanahmadbhat/shopsphere-catalog:v1.1
     container_name: shopsphere-catalog
     restart: unless-stopped
     environment:
@@ -36,7 +37,7 @@ services:
       - shopsphere-network
 
   payment-service:
-    image: irfanahmadbhat/shopsphere-payment:v1.0
+    image: irfanahmadbhat/shopsphere-payment:v1.1
     container_name: shopsphere-payment
     restart: unless-stopped
     environment:
@@ -53,7 +54,7 @@ services:
       - shopsphere-network
 
   order-service:
-    image: irfanahmadbhat/shopsphere-order:v1.0
+    image: irfanahmadbhat/shopsphere-order:v1.1
     container_name: shopsphere-order
     restart: unless-stopped
     environment:
@@ -76,7 +77,7 @@ services:
       - shopsphere-network
 
   frontend:
-    image: irfanahmadbhat/shopsphere-frontend:v1.0
+    image: irfanahmadbhat/shopsphere-frontend:v1.1
     container_name: shopsphere-frontend
     restart: unless-stopped
     ports:

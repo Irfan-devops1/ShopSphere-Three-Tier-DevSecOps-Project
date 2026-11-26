@@ -1,3 +1,4 @@
+
 CREATE TABLE IF NOT EXISTS products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
@@ -13,6 +14,8 @@ CREATE TABLE IF NOT EXISTS payments (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE SEQUENCE IF NOT EXISTS order_number_seq START WITH 1;
+
 CREATE TABLE IF NOT EXISTS orders (
     id SERIAL PRIMARY KEY,
     product_id INTEGER NOT NULL REFERENCES products(id),
@@ -21,6 +24,7 @@ CREATE TABLE IF NOT EXISTS orders (
     total NUMERIC(10,2) NOT NULL,
     payment_id UUID NOT NULL REFERENCES payments(payment_id),
     status VARCHAR(30) NOT NULL,
+    order_number VARCHAR(20) UNIQUE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -30,3 +34,4 @@ VALUES
     ('Smart Watch', 3999, 15),
     ('Laptop Backpack', 1499, 30),
     ('Mechanical Keyboard', 2999, 12);
+
