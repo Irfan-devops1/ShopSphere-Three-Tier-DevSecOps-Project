@@ -1,0 +1,28 @@
+namespace: shopsphere
+
+images:
+  frontend: irfanahmadbhat/shopsphere-frontend:v1.2
+  catalog: irfanahmadbhat/shopsphere-catalog:v1.2
+  order: irfanahmadbhat/shopsphere-order:v1.2
+  payment: irfanahmadbhat/shopsphere-payment:v1.2
+  postgres: postgres:16-alpine
+
+replicaCount: 1
+
+database:
+  name: shopsphere
+  user: shopsphere
+  storage: 2Gi
+
+services:
+  frontend:
+    port: 80
+    nodePort: 30080
+  catalog:
+    port: 4001
+  order:
+    port: 4002
+  payment:
+    port: 4003
+  postgres:
+    port: 5432
