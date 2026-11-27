@@ -632,7 +632,7 @@ function App() {
             <h2>Irfan Ahmad</h2>
 
             <p className="footer-role">
-              DevOps Engineer | Cloud Infrastructure | Automation
+              DevOps Engineer | Cloud Infrastructure | Automation | AWS|Azure
             </p>
 
             <div className="footer-divider"></div>
