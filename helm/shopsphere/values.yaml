@@ -1,10 +1,10 @@
 namespace: shopsphere
 
 images:
-  frontend: irfanahmadbhat/shopsphere-frontend:build-13
-  catalog: irfanahmadbhat/shopsphere-catalog:build-13
-  order: irfanahmadbhat/shopsphere-order:build-13
-  payment: irfanahmadbhat/shopsphere-payment:build-13
+  frontend: irfanahmadbhat/shopsphere-frontend:build-15
+  catalog: irfanahmadbhat/shopsphere-catalog:build-15
+  order: irfanahmadbhat/shopsphere-order:build-15
+  payment: irfanahmadbhat/shopsphere-payment:build-15
   postgres: postgres:16-alpine
 
 replicaCount: 1
