@@ -661,7 +661,7 @@ function App() {
 
         <div className="footer-bottom">
           <strong>© 2026 ShopSphere. All rights reserved.</strong>
-          <strong>Deployed on Kubernetes Cluster(K8s)</strong>
+          <strong>Deployed on AWS EKS and Kubernetes (Kind) Cluster</strong>
         </div>
       </footer>
     </div>
