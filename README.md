@@ -1,100 +1,129 @@
 # ShopSphere – Three-Tier Microservices DevSecOps Project
 
-A production-style DevSecOps implementation demonstrating automated CI/CD, containerization, security scanning, GitOps-based deployment, Kubernetes orchestration, and continuous monitoring.
+A containerized e-commerce application demonstrating **end-to-end DevSecOps automation, CI/CD pipelines, container security, Kubernetes orchestration, GitOps, and infrastructure monitoring** using industry-standard tools.
 
-## Project Overview
-
-ShopSphere is a three-tier microservices-based application automated through a Jenkins CI/CD pipeline.
-
-The project integrates security scanning, Docker image management, Helm-based Kubernetes deployment, Argo CD GitOps, and Prometheus-Grafana monitoring.
-
-**Project Developer:** Irfan Ahmad
-
-## Architecture
+## Architecture Diagram
 
 ![ShopSphere Architecture](screenshots/01-shopsphere-architecture.png)
 
-### Application Architecture
 
-| Tier | Components |
+## Project Overview
+
+ShopSphere is a three-tier microservices-based e-commerce application consisting of a React frontend, three backend services, and a PostgreSQL database.
+
+The project implements an automated DevSecOps workflow using Jenkins, SonarQube, Trivy, Docker, Kubernetes, Helm, and Argo CD.
+
+## Application Architecture
+
+### 1. Presentation Tier
+
+| Component | Technology |
 |---|---|
-| Presentation | React Frontend with Nginx |
-| Application | Catalog Service, Order Service, Payment Service |
+| Frontend | React |
+| Web Server | Nginx |
+
+### 2. Application Tier
+
+| Service | Responsibility |
+|---|---|
+| Catalog Service | Product catalog management |
+| Order Service | Order processing |
+| Payment Service | Payment processing |
+
+### 3. Database Tier
+
+| Component | Technology |
+|---|---|
 | Database | PostgreSQL |
 
 ## Technology Stack
 
 | Category | Tools |
 |---|---|
-| Cloud | AWS EC2 |
-| Source Control | Git, GitHub |
-| CI/CD | Jenkins |
+| Cloud Platform | AWS EC2 |
+| Version Control | Git, GitHub |
+| CI/CD Automation | Jenkins |
 | Code Quality | SonarQube |
-| Security Scanning | Trivy |
 | Containerization | Docker, Docker Compose |
-| Container Registry | Docker Hub |
-| Orchestration | Kubernetes (Kind) |
-| Deployment | Helm, Argo CD |
-| Monitoring | Prometheus, Grafana |
+| Container Security | Trivy |
+| Container Orchestration | Kubernetes (Kind) |
+| Package Management | Helm |
+| GitOps | Argo CD |
+| Monitoring & Visualization | Prometheus, Grafana |
 | Database | PostgreSQL |
-| Operating System | Ubuntu Linux |
+| Web Server | Nginx |
 
-## CI/CD Pipeline
-
-**Workflow:**
-
-GitHub → Jenkins → SonarQube → Trivy → Docker Build → Docker Hub → Helm → Argo CD → Kubernetes
+## DevSecOps CI/CD Workflow
 
 1. Developer pushes code to GitHub.
-2. GitHub webhook triggers Jenkins.
+2. GitHub webhook triggers the Jenkins pipeline.
 3. Jenkins checks out the source code.
-4. SonarQube performs code quality analysis.
-5. Docker builds the application images.
-6. Trivy scans images for HIGH and CRITICAL vulnerabilities.
-7. Jenkins pushes approved images to Docker Hub.
-8. Jenkins updates Helm image tags in GitHub.
-9. Argo CD detects Git changes and synchronizes the deployment.
-10. Kubernetes runs the application containers.
+4. SonarQube performs static code quality analysis.
+5. Jenkins builds Docker images for the frontend and backend services.
+6. Trivy scans container images for security vulnerabilities.
+7. Jenkins pushes the images to Docker Hub.
+8. Jenkins updates image tags in the Helm configuration and pushes the changes to GitHub.
+9. Argo CD detects repository changes and synchronizes the application with Kubernetes.
+10. Prometheus and Grafana provide monitoring and visualization.
 
-## Deployment Architecture
+## Deployment Environments
 
-The project uses Kubernetes and Helm for application deployment, with Argo CD implementing GitOps-based synchronization.
-
-The demonstrated application deployment was performed on a Kubernetes Kind cluster running on AWS EC2. The architecture can also be adapted for AWS EKS.
-
-## Monitoring
-
-Prometheus collects infrastructure and Kubernetes metrics, while Grafana provides visualization through dashboards.
+| Environment | Deployment Method |
+|---|---|
+| Application Testing | Docker Compose on AWS EC2 |
+| Kubernetes Deployment | Kind cluster on AWS EC2 |
+| Application Packaging | Helm |
+| Continuous Deployment | Argo CD |
 
 ## Project Screenshots
 
-### Application
+### 1. Application
+
+**ShopSphere Homepage**
 
 ![ShopSphere Homepage](screenshots/02-shopsphere-homepage.png)
 
-![Product Catalog](screenshots/03-shopsphere-product-catalog.png)
+**Product Catalog**
 
-![Order Workflow](screenshots/04-shopsphere-order-workflow.png)
+![ShopSphere Product Catalog](screenshots/03-shopsphere-product-catalog.png)
 
-### CI/CD and Security
+**Order Workflow**
+
+![ShopSphere Order Workflow](screenshots/04-shopsphere-order-workflow.png)
+
+### 2. CI/CD and Security
+
+**Jenkins Pipeline**
 
 ![Jenkins Pipeline](screenshots/05-jenkins-pipeline.png)
 
+**SonarQube Dashboard**
+
 ![SonarQube Dashboard](screenshots/06-sonarqube-dashboard.png)
+
+**Trivy Security Scan**
 
 ![Trivy Security Scan](screenshots/07-trivy-security-scan.png)
 
+**Docker Hub Images**
+
 ![Docker Hub Images](screenshots/08-dockerhub-image.png)
 
-### Kubernetes and GitOps
+### 3. Kubernetes, GitOps and Monitoring
 
-![Argo CD Synchronization](screenshots/09-argocd-sync-health.png)
+**Argo CD Synchronization and Health**
+
+![Argo CD Dashboard](screenshots/09-argocd-sync-health.png)
+
+**Kubernetes Resources**
 
 ![Kubernetes Resources](screenshots/10-kubernetes-resources.png)
 
-### Monitoring
+**Grafana Kubernetes Dashboard**
 
 ![Grafana Kubernetes Dashboard](screenshots/11-grafana-kubernetes.png)
+
+**Grafana Node Exporter Dashboard**
 
 ![Grafana Node Exporter Dashboard](screenshots/12-grafana-node-exporter.png)
 
@@ -103,8 +132,8 @@ Prometheus collects infrastructure and Kubernetes metrics, while Grafana provide
 ```text
 ShopSphere-Three-Tier-DevSecOps-Project/
 ├── application/
-│   ├── frontend/
 │   ├── catalog-service/
+│   ├── frontend/
 │   ├── order-service/
 │   └── payment-service/
 ├── database/
@@ -114,51 +143,77 @@ ShopSphere-Three-Tier-DevSecOps-Project/
 ├── screenshots/
 ├── Jenkinsfile
 ├── docker-compose.yml
-├── README.md
-└── INSTALLATION-GUIDE.md
+├── INSTALLATION-GUIDE.md
+├── LICENSE
+└── README.md
 ```
 
 ## Getting Started
 
-For complete installation instructions, infrastructure setup, CI/CD configuration, and deployment commands, see:
-
-[INSTALLATION-GUIDE.md](INSTALLATION-GUIDE.md)
-
-For local application execution using Docker Compose:
+### 1. Clone the Repository
 
 ```bash
-cp .env.example .env
+git clone https://github.com/Irfan-devops1/ShopSphere-Three-Tier-DevSecOps-Project.git
+
+cd ShopSphere-Three-Tier-DevSecOps-Project
 ```
 
-Configure `DB_PASSWORD` in `.env`, then run:
+### 2. Configure Environment Variables
+
+Create a `.env` file in the project root:
 
 ```bash
+echo "DB_PASSWORD=change-this-password" > .env
+chmod 600 .env
+```
+
+Replace the example value with a strong password. Never commit `.env` or real credentials to GitHub.
+
+### 3. Start the Application
+
+```bash
+docker compose pull
 docker compose up -d
 ```
 
-Access the application:
+### 4. Verify Running Containers
 
-```text
-http://localhost:4173
+```bash
+docker compose ps
 ```
 
-## Key Highlights
+### 5. Access the Application
 
-- Automated CI/CD using Jenkins.
-- Code quality analysis with SonarQube.
-- Container vulnerability scanning with Trivy.
-- Docker image versioning and publishing.
-- Kubernetes deployments using Helm.
-- GitOps automation with Argo CD.
-- Monitoring using Prometheus and Grafana.
-- Three-tier microservices architecture.
+```text
+http://YOUR-EC2-PUBLIC-IP:4173
+```
 
-## Project Links
+Ensure inbound TCP port `4173` is allowed in the EC2 security group.
 
-- **GitHub Repository:** https://github.com/Irfan-devops1/ShopSphere-Three-Tier-DevSecOps-Project
-- **GitHub Profile:** https://github.com/Irfan-devops1
-- **LinkedIn:** https://linkedin.com/in/irfan-ahmad-1b52098b
+For complete installation and configuration instructions covering Docker, Jenkins, SonarQube, Trivy, Kind, Helm, Argo CD, Prometheus, and Grafana, refer to **[INSTALLATION-GUIDE.md](INSTALLATION-GUIDE.md)**.
+
+## Key DevSecOps Implementations
+
+- Automated CI/CD using Jenkins and GitHub webhooks.
+- Static code analysis using SonarQube.
+- Container vulnerability scanning using Trivy.
+- Automated Docker image build and push to Docker Hub.
+- Kubernetes application deployment using Helm.
+- GitOps-based continuous deployment using Argo CD.
+- Monitoring and visualization using Prometheus and Grafana.
+- Multi-service application deployment using Docker Compose and Kubernetes.
+
+## Author
+
+**Irfan Ahmad**
+
+- GitHub: [Irfan-devops1](https://github.com/Irfan-devops1)
+- LinkedIn: [Irfan Ahmad](https://linkedin.com/in/irfan-ahmad-1b52098b)
+
+## Project Repository
+
+[https://github.com/Irfan-devops1/ShopSphere-Three-Tier-DevSecOps-Project.git](https://github.com/Irfan-devops1/ShopSphere-Three-Tier-DevSecOps-Project.git)
 
 ---
 
-Developed by **Irfan Ahmad** | DevOps Engineer
+*Built to demonstrate practical DevOps and DevSecOps engineering skills through automation, containerization, Kubernetes, GitOps, security scanning, and monitoring.*
